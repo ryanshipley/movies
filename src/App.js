@@ -5,10 +5,19 @@ import MovieDisplay from "./components/MovieDisplay";
 import Form from "./components/Form";
 
 function App() {
+  const apiKey = "5b893806";
+  const [movie, setMovie] = React.useState(null);
+
+  //function to get Movie
+  const getMovie = async (searchTerm) =>{
+      const response = await fetch( `http://www.omdbapi.com/?apikey=${apiKey}&t=${searchTerm}`)
+      const data = await response.json();
+      setMovie(data);
+  }
   // USE OUR COMPONENTS IN APPs RETURNED JSX
   return (
     <div className="App">
-      <Form />
+      <Form moviesearch={getMovie} />
       <MovieDisplay />
     </div>
   );
